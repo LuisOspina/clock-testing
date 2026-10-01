@@ -1,9 +1,9 @@
 name: Playwright Tests
 on:
   push:
-    branches: [ develop ]
+    branches: [ main ]
   pull_request:
-    branches: [ develop ]
+    branches: [ main ]
   workflow_dispatch:
 permissions:
   contents: read
@@ -29,12 +29,12 @@ jobs:
         path: playwright-report/
         retention-days: 30
     - uses: actions/upload-pages-artifact@v4
-      if: ${{ !cancelled() && github.ref == 'refs/heads/develop' && github.event_name != 'pull_request' && hashFiles('playwright-report/index.html') != '' }}
+      if: ${{ !cancelled() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && hashFiles('playwright-report/index.html') != '' }}
       with:
         path: playwright-report/
   deploy:
     needs: test
-    if: ${{ !cancelled() && github.ref == 'refs/heads/develop' && github.event_name != 'pull_request' }}
+    if: ${{ !cancelled() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request' }}
     runs-on: ubuntu-latest
     permissions:
       pages: write
